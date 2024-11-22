@@ -26,11 +26,15 @@ const wordValues: Record<string, number> = {
     "nine": 9,
 }
 
-const getNumberCalibrationValue = (line: string) => {
+const getCalibrationValue = (line: string): CalibrationValue => {
     let lowestIndex = null;
     let lowestValue = 0;
     let highestIndex = null;
     let highestValue = 0;
+    let lowestDigitIndex = null;
+    let lowestDigitValue = 0;
+    let highestDigitIndex = null;
+    let highestDigitValue = 0;
 
     const words = Object.keys(wordValues);
     for (const word of words) {
@@ -38,6 +42,16 @@ const getNumberCalibrationValue = (line: string) => {
 
         if (indices.length > 0) {
             const value = wordValues[word];
+            if (!Number.isNaN(word)) {
+                if (lowestDigitIndex === null || indices[0] < lowestDigitIndex) {
+                    lowestDigitIndex = indices[0];
+                    lowestDigitValue = value;
+                }
+                if (highestDigitIndex === null || indices[indices.length - 1] > highestDigitIndex) {
+                    highestDigitIndex = indices[indices.length - 1];
+                    highestDigitValue = value;
+                }
+            }
             if (lowestIndex === null || indices[0] < lowestIndex) {
                 lowestIndex = indices[0];
                 lowestValue = value;
@@ -49,32 +63,19 @@ const getNumberCalibrationValue = (line: string) => {
         }
     }
 
-    return lowestValue * 10 + highestValue;
+    const digitValue = lowestDigitValue * 10 + highestDigitValue;
+    const digitAndWordValue = lowestValue * 10 + highestValue;
+    return { digit: digitValue, digitAndWord: digitAndWordValue };
 }
 
-const getDigitCalibrationValue = (line: string) => {
-    let firstDigit = 0;
-    let lastDigit = 0;
-    for (const char of line) {
-        if (!Number.isNaN(parseInt(char))) {
-            if (firstDigit === 0) {
-                firstDigit = parseInt(char);
-            }
-            lastDigit = parseInt(char);
-        }
-    }
-    return firstDigit * 10 + lastDigit;
-}
-
-const getCalibrationValue = (line: string, memo: Map<string, CalibrationValue>) => {
+const getCalibrationValueMemo = (line: string, memo: Map<string, CalibrationValue>) => {
     if (memo.has(line)) {
         return memo.get(line) as CalibrationValue;
     }
 
-    const digitValue = getDigitCalibrationValue(line);
-    const digitAndWordValue = getNumberCalibrationValue(line);
-    memo.set(line, { digit: digitValue, digitAndWord: digitAndWordValue });
-    return { digit: digitValue, digitAndWord: digitAndWordValue };
+    const value = getCalibrationValue(line);
+    memo.set(line, value);
+    return value;
 }
 
 export const getCalibrationValueSums = (input: string, memo: Map<string, CalibrationValue> = new Map()): CalibrationValue => {
@@ -83,7 +84,7 @@ export const getCalibrationValueSums = (input: string, memo: Map<string, Calibra
     const lines = input.split("\n");
 
     for (const line of lines) {
-        const { digit, digitAndWord } = getCalibrationValue(line, memo);
+        const { digit, digitAndWord } = getCalibrationValueMemo(line, memo);
         digitSum += digit;
         digitAndWordSum += digitAndWord;
     }
