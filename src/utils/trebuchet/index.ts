@@ -1,4 +1,4 @@
-import { eachIndexOf } from "./search";
+import { eachIndexOf } from "@/utils/search";
 
 export interface CalibrationValue {
     digit: number;
@@ -25,33 +25,16 @@ const wordValues: Record<string, number> = {
     "eight": 8,
     "nine": 9,
 }
-
-const getCalibrationValue = (line: string): CalibrationValue => {
+const getNumberCalibrationValue = (line: string) => {
     let lowestIndex = null;
     let lowestValue = 0;
     let highestIndex = null;
     let highestValue = 0;
-    let lowestDigitIndex = null;
-    let lowestDigitValue = 0;
-    let highestDigitIndex = null;
-    let highestDigitValue = 0;
-
     const words = Object.keys(wordValues);
     for (const word of words) {
         const indices = eachIndexOf(line, word);
-
         if (indices.length > 0) {
             const value = wordValues[word];
-            if (!Number.isNaN(word)) {
-                if (lowestDigitIndex === null || indices[0] < lowestDigitIndex) {
-                    lowestDigitIndex = indices[0];
-                    lowestDigitValue = value;
-                }
-                if (highestDigitIndex === null || indices[indices.length - 1] > highestDigitIndex) {
-                    highestDigitIndex = indices[indices.length - 1];
-                    highestDigitValue = value;
-                }
-            }
             if (lowestIndex === null || indices[0] < lowestIndex) {
                 lowestIndex = indices[0];
                 lowestValue = value;
@@ -62,9 +45,24 @@ const getCalibrationValue = (line: string): CalibrationValue => {
             }
         }
     }
-
-    const digitValue = lowestDigitValue * 10 + highestDigitValue;
-    const digitAndWordValue = lowestValue * 10 + highestValue;
+    return lowestValue * 10 + highestValue;
+}
+const getDigitCalibrationValue = (line: string) => {
+    let firstDigit = 0;
+    let lastDigit = 0;
+    for (const char of line) {
+        if (!Number.isNaN(parseInt(char))) {
+            if (firstDigit === 0) {
+                firstDigit = parseInt(char);
+            }
+            lastDigit = parseInt(char);
+        }
+    }
+    return firstDigit * 10 + lastDigit;
+}
+const getCalibrationValue = (line: string) => {
+    const digitValue = getDigitCalibrationValue(line);
+    const digitAndWordValue = getNumberCalibrationValue(line);
     return { digit: digitValue, digitAndWord: digitAndWordValue };
 }
 
