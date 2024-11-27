@@ -1,4 +1,4 @@
-import { AppBar, Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Drawer, Toolbar, Typography } from "@mui/material";
 import type { Metadata } from "next";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import ProblemSelector from "@/components/ProblemSelector";
@@ -27,7 +27,7 @@ export default function RootLayout({
             <AppBar position="fixed" sx={{ zIndex: 1201 }}>
               <Toolbar>
                 <Typography variant="h6" noWrap component="div">
-                  99xtal's Advent Of Code
+                  99xtal&apos;s Advent Of Code
                 </Typography>
               </Toolbar>
             </AppBar>

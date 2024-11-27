@@ -1,7 +1,7 @@
 "use client";
 
-import { ExpandLess, ExpandMore, StarBorder } from "@mui/icons-material";
-import { Box, Collapse, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { Box, Collapse, Divider, List, ListItemButton, ListItemText } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
