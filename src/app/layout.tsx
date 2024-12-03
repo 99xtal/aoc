@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 const problemGroups: Record<number, number[]> = {
-  2024: [1],
+  2024: [1, 2],
   2023: [1],
 }
 
