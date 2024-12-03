@@ -57,3 +57,17 @@ export const analyzeReactorLevels = (levels: number[], options = { dampened: fal
 
     return report;
 }
+
+export const generateSafetyReports = (input: string) => {
+    const reports: Map<string, SafetyReport> = new Map();
+    for (const line of input.split('\n')) {
+      const matches = line.match(/[0-9]+/g);
+      if (matches != null) {
+        const levels = matches.map((v) => parseInt(v));
+        const report = analyzeReactorLevels(levels, { dampened: true });
+        reports.set(line, report);
+      }
+    }
+  
+    return reports;
+}

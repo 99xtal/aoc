@@ -1,10 +1,19 @@
 "use client";
 
 import { Modal } from "@/components/Modal";
-import { analyzeReactorLevels } from "@/utils/reactor";
+import { generateSafetyReports } from "@/utils/reactor";
 import { SafetyReport } from "@/utils/reactor/types";
 import { Button, Card, Container, FormControl, Grid2 as Grid, Stack, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import { useMemo, useState } from "react";
+
+const exampleInput = `
+7 6 4 2 1
+1 2 7 8 9
+9 7 6 2 1
+1 3 2 4 5
+8 6 4 4 1
+1 3 6 7 9
+`.trim();
 
 const FormattedLine = ({ line, report }: { line: string, report: SafetyReport }) => {
   const values = line.match(/[0-9]+/g);
@@ -12,7 +21,7 @@ const FormattedLine = ({ line, report }: { line: string, report: SafetyReport })
 
   const getColor = (i: number) => {
     if (dampenedIndex != null && i === dampenedIndex) {
-      return 'orange';
+      return 'red';
     }
 
     return 'black';
@@ -37,8 +46,8 @@ const FormattedLine = ({ line, report }: { line: string, report: SafetyReport })
 
 export default function ProblemTwo2024() {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
-    const [inputValue, setInputValue] = useState<string>("");
-    const [reports, setReports] = useState<Map<string, SafetyReport>>(new Map());
+    const [inputValue, setInputValue] = useState<string>(exampleInput);
+    const [reports, setReports] = useState<Map<string, SafetyReport>>(() => generateSafetyReports(exampleInput));
 
     const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setInputValue(e.target.value);
@@ -47,15 +56,7 @@ export default function ProblemTwo2024() {
     const handleUpload = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const reports: Map<string, SafetyReport> = new Map();
-        for (const line of inputValue.split('\n')) {
-            const matches = line.match(/[0-9]+/g);
-            if (matches != null) {
-                const levels = matches.map((v) => parseInt(v));
-                const report = analyzeReactorLevels(levels, { dampened: true });
-                reports.set(line, report);
-            }
-        }
+        const reports = generateSafetyReports(inputValue);
         
         setReports(reports);
         setModalOpen(false);
