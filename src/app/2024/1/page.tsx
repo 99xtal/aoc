@@ -32,6 +32,7 @@ export default function ProblemOne2024() {
         const similarityScore = getSimilarityScore(leftList, rightList);
         setSimilarityScore(similarityScore);
         setTotalDistance(totalDistance);
+        setModalOpen(false);
     }
     
     return (
