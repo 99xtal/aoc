@@ -30,7 +30,7 @@ export const analyzeReactorLevels = (levels: number[], options = { dampened: fal
         return report;
     }
 
-    let ascending = levels[1] > levels[0] ? true : false;
+    const ascending = levels[1] > levels[0] ? true : false;
 
     for (let i = 1; i < levels.length; i++) {
         const prev = levels[i - 1];
