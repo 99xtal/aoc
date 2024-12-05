@@ -1,6 +1,6 @@
 "use client";
 
-import { AppBar, Box, Drawer, IconButton, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Drawer, IconButton, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
 import MenuIcon from '@mui/icons-material/Menu';
 import { Close } from "@mui/icons-material";
