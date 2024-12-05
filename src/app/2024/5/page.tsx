@@ -89,7 +89,7 @@ export default function ProblemFive2024() {
         <div className="container mx-auto">
             <h1 className="text-xl mb-4">--- Sleigh Manual Update Checker ---</h1>
             <p>
-                Enter ordering rules and updates below. The ordering rules are in the format of "page1|page2" where page1 comes before page2. The updates are in the format of "page1,page2,page3,page4,page5" where the pages are the order of the update.
+                Enter ordering rules and updates below. The ordering rules are in the format of &quot;page1|page2&quot; where page1 comes before page2. The updates are in the format of &quot;page1,page2,page3,page4,page5&quot; where the pages are the order of the update.
             </p>
             <button onClick={() => setDialogOpen(true)} className="text-greendim drop-shadow-gd">
                 &#91;Upload Input&#93;
