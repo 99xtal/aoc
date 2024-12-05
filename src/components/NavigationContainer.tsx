@@ -22,7 +22,7 @@ export default function NavigationContainer({ drawerContent, children }: Props) 
     }
 
     return (
-      <div>
+      <div className="flex">
         <header className="min-h-16 flex items-center fixed" style={{ zIndex: 1201 }}>
           <div className="px-6 flex items-center">
             {!isMediumUp && (
