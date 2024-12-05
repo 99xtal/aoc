@@ -56,11 +56,6 @@ export const isUpdateInOrder = (update: number[], rules: OrderingRuleset): boole
 }
 
 export const reorderUpdatePages = (update: number[], rules: OrderingRuleset): number[] => {
-    const updatePageLocations: Record<number, number> = {};
-    for (let i = 0; i < update.length; i++) {
-        updatePageLocations[update[i]] = i;
-    }
-
     const sortedUpdate = [...update];
     sortedUpdate.sort((a, b) => {
         const aRules = rules.get(a);
