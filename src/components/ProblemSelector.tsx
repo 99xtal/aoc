@@ -9,6 +9,12 @@ interface Props {
    problemMap: Record<number, number[]>;
 }
 
+const listItemStyle = {
+   color: "#009900",
+   dropShadow: "0 0 2px #00cc00",
+   ":hover": { color: "#99ff99", dropShadow: "0 0 2px #99ff99" }
+}
+
 export default function ProblemSelector({ problemMap }: Props) {
    const router = useRouter();
    const [openYear, setOpenYear] = useState<number | null>(() => {
@@ -25,11 +31,11 @@ export default function ProblemSelector({ problemMap }: Props) {
    }
 
    return (
-      <Box sx={{ overflow: 'auto' }}>
+      <div>
          {years.map((year) => (
-            <Box key={year}>
-               <ListItemButton onClick={() => handleClickYear(year)}>
-                  <ListItemText primary={year} />
+            <div key={year}>
+               <ListItemButton onClick={() => handleClickYear(year)} sx={listItemStyle}>
+                  <ListItemText primary={`[${year}]`} />
                   {year === openYear ? <ExpandLess /> : <ExpandMore />}
                </ListItemButton>
                <Divider />
@@ -37,7 +43,7 @@ export default function ProblemSelector({ problemMap }: Props) {
                   <List component="div" disablePadding>
                      {problemMap[year].map(problem => (
                         <Box key={problem}>
-                           <ListItemButton onClick={() => router.push(`/${year}/${problem}`)} sx={{ pl: 4 }}>
+                           <ListItemButton onClick={() => router.push(`/${year}/${problem}`)} sx={{ pl: 4, ...listItemStyle }}>
                               <ListItemText primary={`Day ${problem}`} />
                            </ListItemButton>             
                            <Divider />           
@@ -45,8 +51,8 @@ export default function ProblemSelector({ problemMap }: Props) {
                      ))}
                   </List>
                </Collapse>            
-            </Box>
+            </div>
          ))}
-      </Box>
+      </div>
    )
 }

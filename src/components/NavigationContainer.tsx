@@ -4,6 +4,7 @@ import { AppBar, Box, Drawer, IconButton, Toolbar, Typography, useMediaQuery, us
 import { useState } from "react";
 import MenuIcon from '@mui/icons-material/Menu';
 import { Close } from "@mui/icons-material";
+import Link from "next/link";
 
 const drawerWidth = 240;
 
@@ -21,42 +22,45 @@ export default function NavigationContainer({ drawerContent, children }: Props) 
     }
 
     return (
-      <Box sx={{ display: 'flex' }}>
-        <AppBar position="fixed" sx={{ zIndex: 1201 }}>
-          <Toolbar>
+      <div>
+        <header className="min-h-16 flex items-center fixed" style={{ zIndex: 1201 }}>
+          <div className="px-6 flex items-center">
             {!isMediumUp && (
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  edge="start"
-                  onClick={handleDrawerToggle}
-                  sx={{ mr: 2 }}
-                >
-                    {mobileOpen ? <Close /> : <MenuIcon />}
-                </IconButton>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ mr: 2 }}
+              >
+                {mobileOpen ? <Close /> : <MenuIcon />}
+              </IconButton>
             )}
-            <Typography variant="h6" noWrap component="div">
-              99xtal&apos;s Advent Of Code
-            </Typography>
-          </Toolbar>
-        </AppBar>
+            <h1 className="text-green drop-shadow-g hover:text-greenhighlight hover:drop-shadow-gh">
+              <Link href="/">
+                7\&apos;s Advent Of Code
+              </Link>
+            </h1>
+          </div>
+        </header>
         <Drawer
           variant={isMediumUp ? 'permanent' : 'temporary'}
           open={isMediumUp || mobileOpen}
           sx={{
             width: drawerWidth,
             flexShrink: 0,
-            [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+            [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box', backgroundColor: '#0f0f23' },
+            backgroundColor: '#0f0f23'
           }}
           onClose={handleDrawerToggle}
         >
-          <Toolbar />
+          <div className="min-h-16" />
           {drawerContent}
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <Toolbar />
+          <div className="min-h-16" />
           {children}
         </Box>
-      </Box>
+      </div>
     );
 }
