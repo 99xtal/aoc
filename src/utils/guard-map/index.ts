@@ -1,4 +1,4 @@
-import { DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_UP, Direction, GUARD_CHAR, OBST_CHAR, Position, Vector } from "./types";
+import { DIR_UP, Direction, GUARD_CHAR, OBST_CHAR, Position, Vector } from "./types";
 
 export class GuardMap {
     map: string[][];
@@ -38,16 +38,11 @@ export class GuardMap {
     walk(visit: (p: Position, dir: Direction) => void) {
         let dir = DIR_UP;
         let currPos = this.startPos;
-        let nextPos = add(currPos, dir);
 
-        while (this.isInBounds(nextPos)) {
+        while (this.isInBounds(currPos)) {
             visit(currPos, dir);
+            let nextPos = add(currPos, dir);
 
-            nextPos = add(currPos, dir);
-            // hacky
-            if (!this.isInBounds(nextPos)) {
-                break;
-            }
             if (this.charAt(nextPos) === OBST_CHAR) {
                 while (this.charAt(nextPos) === OBST_CHAR) {
                     dir = turnRight(dir);
@@ -57,11 +52,13 @@ export class GuardMap {
 
             currPos = nextPos;
         }
-
-        visit(currPos, dir);
     }
 
     charAt(p: Position) {
+        if (!this.isInBounds(p)) {
+            return undefined;
+        }
+
         return this.map[p.y][p.x];
     }
 
