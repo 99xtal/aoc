@@ -1,4 +1,4 @@
-import { countDistinctPositions, GuardMap, turnRight90 } from "."
+import { countDistinctPositions, GuardMap, turnRight } from "."
 import { DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_UP } from "./types"
 
 export const exampleMap = `....#.....
@@ -12,7 +12,7 @@ export const exampleMap = `....#.....
 #.........
 ......#...`
 
-describe('turnRight90', () => {
+describe('turnRight', () => {
     it('returns correct next direction', () => {
         const testCases = [
             { curr: DIR_UP, next: DIR_RIGHT },
@@ -22,7 +22,7 @@ describe('turnRight90', () => {
         ];
 
         for (const testCase of testCases) {
-            const nextDir = turnRight90(testCase.curr)
+            const nextDir = turnRight(testCase.curr)
 
             expect(nextDir.x).toBe(testCase.next.x);
             expect(nextDir.y).toBe(testCase.next.y);

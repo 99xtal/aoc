@@ -50,7 +50,7 @@ export class GuardMap {
             }
             if (this.charAt(nextPos) === OBST_CHAR) {
                 while (this.charAt(nextPos) === OBST_CHAR) {
-                    dir = turnRight90(dir);
+                    dir = turnRight(dir);
                     nextPos = add(currPos, dir);
                 }
             }
@@ -82,15 +82,10 @@ export function countDistinctPositions(guardMap: GuardMap) {
     return Object.keys(positionMap).length;
 }
 
-export function turnRight90(currDir: Direction) {
-    if (currDir.x === DIR_UP.x && currDir.y === DIR_UP.y) {
-        return DIR_RIGHT;
-    } else if (currDir.x === DIR_RIGHT.x && currDir.y === DIR_RIGHT.y) {
-        return DIR_DOWN;
-    } else if (currDir.x === DIR_DOWN.x && currDir.y === DIR_DOWN.y) {
-        return DIR_LEFT;
-    } else {
-        return DIR_UP;
+export function turnRight(currDir: Direction): Direction {
+    return {
+        x: currDir.y === 0 ? 0 : -currDir.y,
+        y: currDir.x
     }
 }
 
