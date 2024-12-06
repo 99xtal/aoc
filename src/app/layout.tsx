@@ -19,7 +19,7 @@ const sourceCodePro = Source_Code_Pro({
 })
 
 const problemGroups: Record<number, number[]> = {
-  2024: [1, 2, 3, 4, 5],
+  2024: [1, 2, 3, 4, 5, 6],
   2023: [1],
 }
 

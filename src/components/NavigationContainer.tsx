@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Close } from "@mui/icons-material";
 import Link from "next/link";
 
-const drawerWidth = 240;
+const drawerWidth = 275;
 
 type Props = React.PropsWithChildren<{
   drawerContent?: React.ReactNode;
@@ -50,7 +50,6 @@ export default function NavigationContainer({ drawerContent, children }: Props) 
             width: drawerWidth,
             flexShrink: 0,
             [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box', backgroundColor: '#0f0f23' },
-            backgroundColor: '#0f0f23'
           }}
           onClose={handleDrawerToggle}
         >
