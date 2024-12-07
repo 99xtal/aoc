@@ -1,6 +1,6 @@
 "use client";
 
-import { countDistinctPositions, GuardMap } from "@/utils/guard-map";
+import { countDistinctPositions, countPossibleLoopObstructions, GuardMap } from "@/utils/guard-map";
 import { FormEvent, useEffect, useRef, useState } from "react";
 
 const exampleMap = `....#.....
@@ -15,6 +15,7 @@ const exampleMap = `....#.....
 ......#...`
 
 // 1917 too high
+// 1419 too low
 
 export default function ProblemFive2024() {
     const [input, setInput] = useState<string>(exampleMap);
@@ -27,6 +28,9 @@ export default function ProblemFive2024() {
         const guardMap = new GuardMap(input);
         const distinctPositions = countDistinctPositions(guardMap);
         console.log(distinctPositions);
+
+        const possibleCount = countPossibleLoopObstructions(guardMap);
+        console.log(possibleCount);
 
         setDialogOpen(false);
     }

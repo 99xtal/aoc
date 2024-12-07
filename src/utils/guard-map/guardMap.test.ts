@@ -1,4 +1,4 @@
-import { countDistinctPositions, GuardMap, turnRight } from "."
+import { countDistinctPositions, GuardMap, turnRight, vecIsEqual } from "."
 import { DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_UP } from "./types"
 
 export const exampleMap = `....#.....
@@ -35,6 +35,14 @@ describe('GuardMap', () => {
     it('returns correct OOB check', () => {
         const map = new GuardMap(exampleMap);
         expect(map.isInBounds({ x: 7, y: 10 })).toBe(false);
+    })
+
+    it('returns correct next position', () => {
+        const map = new GuardMap(exampleMap);
+        const [nextPos, nextDir] = map.next({ x: 4, y: 1 }, DIR_UP);
+        expect(nextPos.x).toBe(5)
+        expect(nextPos.y).toBe(1);
+        expect(vecIsEqual(nextDir, DIR_RIGHT)).toBe(true);
     })
 })
 
