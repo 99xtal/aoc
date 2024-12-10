@@ -1,4 +1,5 @@
-import { DIR_DOWN, DIR_RIGHT, DIR_UP, Direction, GUARD_CHAR, OBST_CHAR, PathNode, Position, Vector } from "./types";
+import { Direction, Position, vecAdd, vecIsEqual } from "../vector";
+import { DIR_DOWN, DIR_RIGHT, DIR_UP, GUARD_CHAR, OBST_CHAR, PathNode } from "./types";
 
 export class GuardMap {
     map: string[][];
@@ -122,14 +123,6 @@ export function turnRight(currDir: Direction): Direction {
         x: currDir.y === 0 ? 0 : -currDir.y,
         y: currDir.x
     }
-}
-
-function vecAdd(v1: Vector, v2: Vector) {
-    return { x: v1.x + v2.x, y: v1.y + v2.y }
-}
-
-export function vecIsEqual(v1: Vector, v2: Vector) {
-    return v1.x === v2.x && v1.y === v2.y;
 }
 
 function dirStr(dir: Direction) {
