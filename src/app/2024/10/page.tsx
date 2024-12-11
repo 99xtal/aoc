@@ -1,6 +1,6 @@
 "use client";
 
-import { LavaMap } from "@/utils/lava-hiking";
+import { LavaMap, rateTrails, scoreTrails } from "@/utils/lava-hiking";
 import { FormEvent, useEffect, useRef, useState } from "react";
 
 const sampleInput = `89010123
@@ -21,16 +21,16 @@ export default function ProblemTen2024() {
         e.preventDefault();
 
         const lavaMap = new LavaMap(input);
-        const scoreMap = lavaMap.scoreTrails();
-        const ratingMap = lavaMap.rateTrails();
+        const scoreMap = scoreTrails(lavaMap.trails);
+        const ratingMap = rateTrails(lavaMap.trails);
 
         let scoreSum = 0;
-        for (const [trailHead, score] of scoreMap.entries()) {
+        for (const score of scoreMap.values()) {
             scoreSum += score;
         }
 
         let ratingSum = 0;
-        for (const [trailHead, rating] of ratingMap.entries()) {
+        for (const rating of ratingMap.values()) {
             ratingSum += rating;
         }
 
